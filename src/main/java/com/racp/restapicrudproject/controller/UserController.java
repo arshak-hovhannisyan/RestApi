@@ -15,7 +15,6 @@ public class UserController {
             return ResponseEntity.ok("Server Working");
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Error is here");
-
         }
     }
 
