@@ -5,12 +5,8 @@ import com.racp.restapicrudproject.exception.UserAlreadyExistException;
 import com.racp.restapicrudproject.exception.UserNotFoundException;
 import com.racp.restapicrudproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -24,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity saveUser(@RequestBody User user) {
+    public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
             userService.save(user);
             return ResponseEntity.ok("Пользователь успешно сохранен");
@@ -36,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity getAllUsers() {
+    public ResponseEntity<?> getAllUsers() {
         try {
             return ResponseEntity.ok(userService.getAll());
         } catch (Exception e) {
@@ -45,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity getUser(@RequestParam Long id) {
+    public ResponseEntity<?> getUser(@RequestParam Long id) {
         try {
             return ResponseEntity.ok(userService.getById(id));
         } catch (UserNotFoundException e) {
@@ -57,7 +53,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(userService.delete(id));
         } catch (Exception e) {

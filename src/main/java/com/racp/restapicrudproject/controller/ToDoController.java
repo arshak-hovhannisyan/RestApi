@@ -17,19 +17,28 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @PostMapping
-    public ResponseEntity createToDo(@RequestBody ToDo todo,
-                                     @RequestParam Long userId) {
+    @PostMapping("/createToDo")
+    public ResponseEntity<?> createOnlyToDo(@RequestBody ToDo toDo) {
         try {
-            return ResponseEntity.ok(toDoService.createToDo(todo,userId));
+            toDoService.createOnlyToDo(toDo);
+            return ResponseEntity.ok("Задача сохранена");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
-
     }
 
-    @PutMapping
-    public ResponseEntity completeToDo(@RequestParam Long Id) {
+    @PostMapping("/createToDoUser")
+    public ResponseEntity<?> createToDoWithUser(@RequestBody ToDo todo,
+                                                @RequestParam Long userId) {
+        try {
+            return ResponseEntity.ok(toDoService.createToDoWithUser(todo, userId));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
+    }
+
+    @PutMapping("/todoStatus")
+    public ResponseEntity<?> completeToDo(@RequestParam Long Id) {
         try {
             return ResponseEntity.ok(toDoService.completeToDo(Id));
         } catch (Exception e) {

@@ -20,11 +20,16 @@ public class ToDoService {
         this.userRepository = userRepository;
     }
 
-    public ToDoDto createToDo(ToDo toDo, Long userId) {
+    public ToDoDto createToDoWithUser(ToDo toDo, Long userId) {
         User user=userRepository.findById(userId).orElse(null);
         toDo.setUser(user);
         return ToDoDto.toModel(toDoRepository.save(toDo));
     }
+
+    public ToDoDto createOnlyToDo(ToDo toDo) {
+        return ToDoDto.toModel(toDoRepository.save(toDo));
+    }
+
 
     public ToDoDto completeToDo(Long id) {
         ToDo toDo=toDoRepository.findById(id).orElse(null);
